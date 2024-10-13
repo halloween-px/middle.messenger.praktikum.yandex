@@ -1,3 +1,0 @@
-const tmplLogin = `
-    <div></div>
-`;
