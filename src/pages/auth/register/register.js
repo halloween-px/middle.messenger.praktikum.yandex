@@ -3,53 +3,59 @@ import MainForm from '../../../components/form/form'
 import Input from '../../../components/input/input'
 import '../auth.scss'
 import Button from '../../../components/button/button'
-import { TemplateRegister } from './register.tmpl'
+import { AuthTemplate } from '../auth.tmpl'
 
 class Register {
   render() {
     const userLoginProps = {
-      name: 'user-name',
+      id: 'user_login',
+      name: 'login',
       type: 'text',
       label: 'Логин',
       isRequired: true,
     }
 
     const userEmailProps = {
-      name: 'user-email',
+      id: 'user_email',
+      name: 'email',
       type: 'text',
       label: 'Почта',
       isRequired: true,
     }
 
     const userPasswordProps = {
-      name: 'user-password',
+      id: 'user_password',
+      name: 'password',
       type: 'password',
       label: 'Пароль',
       isRequired: true,
     }
 
     const userRepeatPasswordProps = {
-      name: 'user-repeat-password',
-      type: 'password',
+      ...userPasswordProps,
+      id: 'user_repeat_password',
       label: 'Пароль (еще раз)',
     }
 
-    const userNameProps = {
-      name: 'user-name',
+    const firstNameProps = {
+      id: 'user_first_name',
+      name: 'first_name',
       type: 'text',
       label: 'Имя',
       isRequired: true,
     }
 
-    const userSubNameProps = {
-      name: 'user-subname',
+    const secondNameProps = {
+      id: 'user_second_name',
+      name: 'second_name',
       type: 'text',
       label: 'Фамилия',
       isRequired: true,
     }
 
     const userPhoneProps = {
-      name: 'user-phone',
+      id: 'user_phone',
+      name: 'phone',
       type: 'text',
       label: 'Телефон',
       isRequired: true,
@@ -66,12 +72,12 @@ class Register {
     }
 
     const userLogin = new Input(userLoginProps).render()
-    const userName = new Input(userNameProps).render()
+    const userName = new Input(firstNameProps).render()
     const userEmail = new Input(userEmailProps).render()
     const userPassword = new Input(userPasswordProps).render()
     const userRepeatPassword = new Input(userRepeatPasswordProps).render()
     const userPhone = new Input(userPhoneProps).render()
-    const userSubName = new Input(userSubNameProps).render()
+    const userSubName = new Input(secondNameProps).render()
     const btnRegister = new Button(btnRegisterProps).render()
     const btnAuth = new Button(btnAuthProps).render()
 
@@ -90,7 +96,7 @@ class Register {
     }
 
     const form = new MainForm(loginFormProps).render()
-    const template = Handlebars.compile(TemplateRegister)
+    const template = Handlebars.compile(AuthTemplate)
     return template({ form })
   }
 }

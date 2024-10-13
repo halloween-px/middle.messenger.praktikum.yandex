@@ -1,20 +1,22 @@
 import Handlebars from 'handlebars'
-import { TemplateLogin } from './login.tmpl'
 import MainForm from '../../../components/form/form'
 import Input from '../../../components/input/input'
 import '../auth.scss'
 import Button from '../../../components/button/button'
+import { AuthTemplate } from '../auth.tmpl'
 
 class Login {
   render() {
     const userLoginProps = {
-      name: 'user-name',
+      id: 'user_login',
+      name: 'login',
       type: 'text',
       label: 'Логин',
       isRequired: true,
     }
     const userPasswordProps = {
-      name: 'user-password',
+      id: 'user_password',
+      name: 'password',
       type: 'password',
       label: 'Пароль',
       isRequired: true,
@@ -42,7 +44,7 @@ class Login {
     }
     const form = new MainForm(loginFormProps).render()
 
-    const template = Handlebars.compile(TemplateLogin)
+    const template = Handlebars.compile(AuthTemplate)
     return template({ form })
   }
 }
