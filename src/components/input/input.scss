@@ -1,27 +1,37 @@
 .form {
-    &-group {
+    &-floating {
+        position: relative;
         border-bottom: 1px solid $color-primary;
         padding-bottom: 7px;
-        position: relative;
+
+        .form-label {
+            position: absolute;
+            left: 0;
+            top: 4px;
+        }
+
+        .form-control:focus, .form-control:valid {
+            & + label {
+                top: -12px;
+                font-size: 9px;
+            }
+        }
+    }
+
+    &-group {
+        border-bottom: 1px solid $border-color;
+        padding-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
     }
 
     &-label {
-        position: absolute;
-        left: 0;
-        top: 4px;
         color: $gray;
         transition: $transition-base;
     }
 
     &-control {
         color: $text;
-
-        &:focus, &:valid {
-            & + label {
-                top: -12px;
-                font-size: 9px;
-            }
-        }
     }
 
     &-control, &-label {

@@ -3,16 +3,19 @@ import Handlebars from 'handlebars'
 import './error.scss'
 
 class ErrorPage {
-  constructor({ error, description }) {
+  constructor({ content, error, description }) {
+    this.content = content
     this.props = {
       error,
       description,
     }
+
+    this.render()
   }
 
   render() {
     const template = Handlebars.compile(ErrorTemplate)
-    return template(this.props)
+    this.content.innerHTML = template(this.props)
   }
 }
 

@@ -2,9 +2,14 @@ import Handlebars from 'handlebars'
 import { HomeTemplate } from './home.tmpl'
 
 class Home {
+  constructor({ content }) {
+    this.content = content
+
+    this.render()
+  }
+
   render() {
-    const template = Handlebars.compile(HomeTemplate)
-    return template({})
+    this.content.innerHTML = Handlebars.compile(HomeTemplate)({})
   }
 }
 

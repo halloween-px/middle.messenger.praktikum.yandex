@@ -1,26 +1,24 @@
 import Handlebars from 'handlebars'
 import MainForm from '../../../components/form/form'
-import Input from '../../../components/input/input'
+import { InputFloatingLabel } from '../../../components/input/input'
+import {
+  userInputInfoProps,
+  userInputsPasswordsProps,
+} from '../../../components/input/config'
 import '../auth.scss'
 import Button from '../../../components/button/button'
 import { AuthTemplate } from '../auth.tmpl'
 
 class Login {
+  constructor({ content }) {
+    this.content = content
+
+    this.render()
+  }
+
   render() {
-    const userLoginProps = {
-      id: 'user_login',
-      name: 'login',
-      type: 'text',
-      label: 'Логин',
-      isRequired: true,
-    }
-    const userPasswordProps = {
-      id: 'user_password',
-      name: 'password',
-      type: 'password',
-      label: 'Пароль',
-      isRequired: true,
-    }
+    const { userLoginProps } = userInputInfoProps
+    const { userPasswordProps } = userInputsPasswordsProps
 
     const btnAuthProps = {
       className: 'btn-primary',
@@ -32,8 +30,8 @@ class Login {
       label: 'Нет аккаунта',
     }
 
-    const userName = new Input(userLoginProps).render()
-    const userPassword = new Input(userPasswordProps).render()
+    const userName = new InputFloatingLabel(userLoginProps).render()
+    const userPassword = new InputFloatingLabel(userPasswordProps).render()
     const btnAuth = new Button(btnAuthProps).render()
     const btnRegisterAcc = new Button(btnRegisterAccProps).render()
 
@@ -45,7 +43,7 @@ class Login {
     const form = new MainForm(loginFormProps).render()
 
     const template = Handlebars.compile(AuthTemplate)
-    return template({ form })
+    this.content.innerHTML = template({ form })
   }
 }
 

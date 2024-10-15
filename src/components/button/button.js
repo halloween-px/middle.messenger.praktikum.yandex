@@ -9,7 +9,11 @@ class Button {
 
   render() {
     const template = Handlebars.compile(ButtonTemplate)
-    return template({ label: this.label, className: this.className })
+
+    return template({
+      label: this.label,
+      className: this.className,
+    })
   }
 }
 

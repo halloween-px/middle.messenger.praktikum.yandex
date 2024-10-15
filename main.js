@@ -2,44 +2,50 @@ import Login from './src/pages/auth/login/login'
 import Register from './src/pages/auth/register/register'
 import ErrorPage from './src/pages/error/error'
 import Home from './src/pages/home/home'
+import Profile from './src/pages/profile/profile'
 
 class App {
   constructor() {
     this.app = document.getElementById('app')
     this.routes = {
-      '/': new Home(),
-      '#login': new Login(),
-      '#register': new Register(),
-      '#error-404': new ErrorPage({
-        error: 404,
-        description: 'Не туда попали',
-      }),
-      '#error-500': new ErrorPage({
-        error: 500,
-        description: 'Мы уже фиксим',
-      }),
+      '/': Home,
+      '#login': Login,
+      '#register': Register,
+      '#error-404': ErrorPage,
+      '#error-500': ErrorPage,
+      '#profile': Profile,
     }
   }
 
   init() {
     this.router()
-  }
-
-  renderPage(page) {
-    this.app.innerHTML = page
+    this.handleRouteChange()
   }
 
   router() {
-    //тестовый роутинг, знаю полная фигня (времени поджимает) но странички переключает
-    this.renderPage(this.routes['/'].render())
-
     window.addEventListener('hashchange', () => {
-      const hash = window.location.hash || '/'
-      const Page = this.routes[hash]
-      if (Page) {
-        this.renderPage(Page.render())
-      }
+      this.handleRouteChange()
     })
+  }
+
+  handleRouteChange() {
+    const hash = window.location.hash || '/'
+    let Page = null
+    if (hash === '#error-404') {
+      Page = new this.routes[hash]({
+        content: this.app,
+        error: 404,
+        description: 'Не туда попали',
+      })
+    } else if (hash === '#error-500') {
+      Page = new this.routes[hash]({
+        content: this.app,
+        error: 500,
+        description: 'Мы уже фиксим',
+      })
+    } else {
+      Page = new this.routes[hash]({ content: this.app })
+    }
   }
 }
 
