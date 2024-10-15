@@ -9,7 +9,7 @@ export const ProfileTemplate = `
         <div class="user-area">
             <button class="btn btn-change-avatar">
                 <div class="user-image">
-                    <img src="./static/images/no_image.png" alt="no image">
+                    <img src="../static/images/no_image.png" alt="no image">
                 </div>
             </button>
             <h5 class="user-name">Иван</h5>
