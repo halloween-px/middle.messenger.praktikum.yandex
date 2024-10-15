@@ -1,5 +1,6 @@
 import Login from './src/pages/auth/login/login'
 import Register from './src/pages/auth/register/register'
+import Chat from './src/pages/chat/chat'
 import ErrorPage from './src/pages/error/error'
 import Home from './src/pages/home/home'
 import Profile from './src/pages/profile/profile'
@@ -14,6 +15,7 @@ class App {
       '#error-404': ErrorPage,
       '#error-500': ErrorPage,
       '#profile': Profile,
+      '#chat': Chat,
     }
   }
 
