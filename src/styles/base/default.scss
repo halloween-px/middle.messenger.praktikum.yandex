@@ -1,0 +1,48 @@
+* { 
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: $font-base;
+    font-style: normal;
+}
+
+#app {
+    width: 100%;
+    height: 100vh;
+}
+
+a {
+    text-decoration: none;
+}
+
+h4, h5, h1 {
+    margin-bottom: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+h1 {
+    font-size: $text-h1;
+}
+
+h4 {
+    font-size: $text-xl;
+    font-weight: 500;
+}
+
+h5 {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 16px;
+}
+
+input {
+    margin: 0;
+    padding: 0; 
+    border: none; 
+    outline: none;
+    background: transparent;
+}

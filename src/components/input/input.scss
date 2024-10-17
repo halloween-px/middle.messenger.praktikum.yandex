@@ -1,0 +1,41 @@
+.form {
+    &-floating {
+        position: relative;
+        border-bottom: 1px solid $color-primary;
+        padding-bottom: 7px;
+
+        .form-label {
+            position: absolute;
+            left: 0;
+            top: 4px;
+        }
+
+        .form-control:focus, .form-control:valid {
+            & + label {
+                top: -12px;
+                font-size: 9px;
+            }
+        }
+    }
+
+    &-group {
+        border-bottom: 1px solid $border-color;
+        padding-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &-label {
+        color: $gray;
+        transition: $transition-base;
+    }
+
+    &-control {
+        color: $text;
+    }
+
+    &-control, &-label {
+        font-size: 13px;
+        font-weight: 500;
+    }
+}

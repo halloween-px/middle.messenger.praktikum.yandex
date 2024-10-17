@@ -1,0 +1,11 @@
+.form {
+    border-radius: $border-radius;
+    padding: 30px;
+    box-shadow: $box-shadow;
+    max-width: 340px;
+    width: 100%;
+
+    &-title {
+        text-align: center;
+    }
+}
