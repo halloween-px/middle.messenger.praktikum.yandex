@@ -7,9 +7,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --open",
     "build": "vite build",
-    "start": "vite build && vite preview --port 3000"
+    "start": "vite build && vite preview"
   },
   "devDependencies": {
     "prettier": "^3.3.3",

@@ -22,14 +22,15 @@ pageError404: https://middle-messeng.netlify.app/#error-404
 https://middle-messeng.netlify.app
 
 ## Запуск проекта:
+
 1. Установите зависимости
-npm install
+   npm install
 
 2. Запустите проект
-npm run start
+   npm run start
 
-4. Откройте приложение в браузере
-http://localhost:3000
+3. Откройте приложение в браузере
+   http://localhost:3000
 
-5. Дополнительные команды
-npm run build
+4. Дополнительные команды
+   npm run build
