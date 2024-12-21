@@ -1,11 +1,17 @@
 .form {
-    border-radius: $border-radius;
-    padding: 30px;
-    box-shadow: $box-shadow;
-    max-width: 340px;
-    width: 100%;
+  border-radius: $border-radius;
+  padding: 30px;
+  box-shadow: $box-shadow;
+  max-width: 340px;
+  width: 100%;
 
-    &-title {
-        text-align: center;
-    }
+  &-plain {
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  &-title {
+    text-align: center;
+  }
 }

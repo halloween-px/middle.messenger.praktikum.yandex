@@ -7,7 +7,6 @@ export default defineConfig({
     port: 3000,
     open: true,
   },
-  assetsInclude: 'src/**/*.hbs',
   plugins: [
     handlebars({
       partialDirectory: resolve(__dirname, 'src/components'),
@@ -16,7 +15,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import "./src/styles/main.scss";`,
+        additionalData: '@import "./src/styles/main.scss";',
         silenceDeprecations: ['legacy-js-api'],
       },
     },

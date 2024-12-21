@@ -1,41 +1,129 @@
 .form {
-    &-floating {
-        position: relative;
-        border-bottom: 1px solid $color-primary;
-        padding-bottom: 7px;
+  &-floating {
+    position: relative;
+    border-bottom: 1px solid $color-primary;
+    padding-bottom: 7px;
 
-        .form-label {
-            position: absolute;
-            left: 0;
-            top: 4px;
-        }
-
-        .form-control:focus, .form-control:valid {
-            & + label {
-                top: -12px;
-                font-size: 9px;
-            }
-        }
+    .form-label {
+      position: absolute;
+      left: 0;
+      top: 4px;
     }
 
-    &-group {
-        border-bottom: 1px solid $border-color;
-        padding-bottom: 10px;
-        display: flex;
-        justify-content: space-between;
+    .form-control:focus,
+    .form-control:valid {
+      & + label {
+        top: -12px;
+        font-size: 9px;
+      }
+    }
+  }
+
+  &-group {
+    border-bottom: 1px solid $border-color;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+
+    &.form-error {
+      margin-bottom: 24px;
     }
 
-    &-label {
-        color: $gray;
+    &.form-error .error-message {
+      bottom: -16px;
+    }
+  }
+
+  &-label {
+    color: $gray;
+    transition: $transition-base;
+  }
+
+  &-control {
+    color: $text;
+  }
+
+  &-control,
+  &-label {
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  &-search {
+    background-color: $light;
+    border-radius: $border-radius-sm;
+    position: relative;
+    height: 32px;
+    width: 100%;
+
+    .form-control {
+      width: 100%;
+      height: 100%;
+      padding-left: 34px;
+
+      &:focus,
+      &:not(:placeholder-shown) {
+        & + .form-label {
+          left: 42px;
+
+          .label-text {
+            opacity: 0;
+          }
+        }
+      }
+    }
+
+    .form-label {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      color: $gray;
+      font-size: 12px;
+      transition: $transition-base;
+
+      .icon {
+        margin-right: 4px;
+      }
+
+      .icon,
+      .label-text {
         transition: $transition-base;
+      }
+    }
+  }
+
+  .error-message {
+    position: absolute;
+    bottom: -24px;
+    left: 0;
+    color: $red;
+    font-size: 8px;
+    transition: $transition-base;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  &-error {
+    position: relative;
+    margin-bottom: 12px;
+    transition: $transition-base;
+
+    .form-control {
+      color: $red;
     }
 
-    &-control {
-        color: $text;
+    .error-message {
+      opacity: 1;
+      visibility: visible;
     }
+  }
 
-    &-control, &-label {
-        font-size: 13px;
-        font-weight: 500;
-    }
+  &-message {
+    border-radius: 50rem;
+    background-color: $light;
+    padding: 10px 20px;
+  }
 }

@@ -1,10 +1,10 @@
 //fonts
-@import "./base/fonts.scss";
+@import './base/fonts.scss';
 
 //base
-@import "./base/variables.scss";
-@import "./base/default.scss";
-@import "./base/global.scss";
+@import './base/variables.scss';
+@import './base/default.scss';
+@import './base/global.scss';
 
-//components
-@import "./componenst/button.scss"
+//mixins
+@import './mixins/line-clamp.scss';

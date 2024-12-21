@@ -1,11 +1,23 @@
 .d-block {
-    display: block;
+  display: block;
 }
 
 .d-none {
-    display: none;
+  display: none;
 }
 
 .w-full {
-    width: 100%;
+  width: 100%;
+}
+
+.text-end {
+  text-align: end;
+}
+
+.text-start {
+  text-align: start;
+}
+
+.text-center {
+  text-align: center;
 }
