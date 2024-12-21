@@ -48,7 +48,8 @@
       color: $gray;
       font-weight: 400;
       line-height: 1.2;
-      @include lineClamp(2);
+
+      @include line-clamp(2);
     }
 
     &-last-time {

@@ -1,7 +1,8 @@
-@mixin lineClamp($line: 3, $height: null) {
-  @if ($height) {
+@mixin line-clamp($line: 3, $height: null) {
+  @if $height {
     min-height: $height;
   }
+
   height: auto;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -1,7 +1,14 @@
 {
-  "extends": "stylelint-config-standard",
+  "extends": "stylelint-config-standard-scss",
   "rules": {
-    "color-hex-case": "lower"
-  },
-  "ignoreFiles": ["dist/*", "node_modules/*"]
+    "no-descending-specificity": null,
+    "block-no-empty": null,
+    "color-hex-length": "short",
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": ["mixin", "include", "if"]
+      }
+    ]
+  }
 }
