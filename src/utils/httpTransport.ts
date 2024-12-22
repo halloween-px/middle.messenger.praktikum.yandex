@@ -12,6 +12,8 @@ type Options = {
   timeout?: number
 }
 
+type HTTPMethod = (url: string, options?: Options) => Promise<unknown>
+
 function queryStringify(data: Object) {
   if (typeof data !== 'object') {
     throw new Error('Data must be object')
@@ -24,19 +26,19 @@ function queryStringify(data: Object) {
 }
 
 class HTTPTransport {
-  get = (url: string, options: Options = { method: METHODS.GET }) => {
+  get: HTTPMethod = (url, options = { method: METHODS.GET }) => {
     return this.request(url, options)
   }
 
-  post = (url: string, options: Options = { method: METHODS.POST }) => {
+  post: HTTPMethod = (url, options = { method: METHODS.POST }) => {
     return this.request(url, options)
   }
 
-  put = (url: string, options: Options = { method: METHODS.PUT }) => {
+  put: HTTPMethod = (url, options = { method: METHODS.PUT }) => {
     return this.request(url, options)
   }
 
-  delete = (url: string, options: Options = { method: METHODS.DELETE }) => {
+  delete: HTTPMethod = (url, options = { method: METHODS.DELETE }) => {
     return this.request(url, options)
   }
 
