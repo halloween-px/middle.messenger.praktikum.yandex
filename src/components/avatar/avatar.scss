@@ -1,0 +1,34 @@
+.avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 21px;
+
+  &-image {
+    border-radius: 50rem;
+    background-color: $light;
+    overflow: hidden;
+
+    &.default {
+      width: 47px;
+      height: 47px;
+    }
+
+    &.xl {
+      width: 130px;
+      height: 130px;
+    }
+
+    &.sm {
+      width: 34px;
+      height: 34px;
+    }
+
+    .image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+}
