@@ -41,7 +41,7 @@ export class ChatAPI extends BaseAPI {
     })
   }
 
-  getUsersInChat(id: number, data?: Record<string, string>) {
+  getUsersInChat(id: number) {
     return chatAPIInstance.get(`/chats/${id}/users`, { credentials: true })
   }
 
