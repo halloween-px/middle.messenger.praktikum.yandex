@@ -1,11 +1,14 @@
 import { Block } from '../lib/block'
 
-export const renderDOM = (query: string, block: Block) => {
+export const renderDOM = (query: string, block: Block | HTMLElement) => {
   const root = document.querySelector(query)
-  const content = block.getContent()
+  const content = block instanceof Block ? block.getContent() : block
 
   if (root && content) {
     root.insertAdjacentElement('beforeend', content)
-    block.componentDidMount()
+
+    if (block instanceof Block) {
+      block.componentDidMount()
+    }
   }
 }

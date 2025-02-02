@@ -1,3 +1,5 @@
+import { queryStringify } from './helpres'
+
 enum METHODS {
   GET = 'GET',
   POST = 'POST',
@@ -5,82 +7,87 @@ enum METHODS {
   DELETE = 'DELETE',
 }
 
+export interface XHRError {
+  status: number
+  responseText: string
+  statusText: string
+}
+
 type Options = {
-  method: string
-  headers?: Record<string, string>
+  headers?: {
+    'Content-type'?: 'application/json' | string
+    Accept?: 'application/json' | string
+  }
   data?: Record<string, any>
   timeout?: number
+  credentials?: boolean
 }
 
 type HTTPMethod = (url: string, options?: Options) => Promise<unknown>
 
-function queryStringify(data: Object) {
-  if (typeof data !== 'object') {
-    throw new Error('Data must be object')
-  }
-
-  return Object.entries(data).reduce((acc, [key, value], i) => {
-    acc += `${i === 0 ? '?' : '&'}${key}=${value}`
-    return acc
-  }, '')
-}
-
 class HTTPTransport {
-  get: HTTPMethod = (url, options = { method: METHODS.GET }) => {
-    return this.request(url, options)
+  baseUrl: string
+
+  constructor(url: string) {
+    this.baseUrl = url
   }
 
-  post: HTTPMethod = (url, options = { method: METHODS.POST }) => {
-    return this.request(url, options)
-  }
+  get: HTTPMethod = (url, options) => this.request(this.baseUrl + url, { ...options, method: METHODS.GET })
 
-  put: HTTPMethod = (url, options = { method: METHODS.PUT }) => {
-    return this.request(url, options)
-  }
+  post: HTTPMethod = (url, options) => this.request(this.baseUrl + url, { ...options, method: METHODS.POST })
 
-  delete: HTTPMethod = (url, options = { method: METHODS.DELETE }) => {
-    return this.request(url, options)
-  }
+  put: HTTPMethod = (url, options) => this.request(this.baseUrl + url, { ...options, method: METHODS.PUT })
 
-  request = (url: string, options: Options) => {
-    const { method, headers = {}, data } = options
+  delete: HTTPMethod = (url, options) => this.request(this.baseUrl + url, { ...options, method: METHODS.DELETE })
+
+  request = (url: string, options: Omit<Options, 'method'> & { method: METHODS }) => {
+    const { method, headers = {}, data, credentials = false } = options
     const timeout = options.timeout || 5000
 
     return new Promise((resolve, reject) => {
       if (!method) {
-        reject(new Error('No metod'))
+        reject(new Error('No method'))
       }
 
       const xhr = new XMLHttpRequest()
       const isGet = method === METHODS.GET
-      xhr.open(method, isGet && !!data ? `${url}${queryStringify(data)}` : url)
 
-      Object.entries(headers).forEach(([headersKey, headersValue]) => {
-        xhr.setRequestHeader(headersKey, headersValue)
-      })
+      xhr.open(method, isGet && !!data ? `${url}?${queryStringify(data)}` : url)
 
+      if (!(data instanceof FormData)) {
+        Object.entries(headers).forEach(([headersKey, headersValue]) => {
+          xhr.setRequestHeader(headersKey, headersValue)
+        })
+      }
+
+      xhr.withCredentials = credentials
       xhr.timeout = timeout
 
       xhr.onload = () => {
-        if (xhr.status <= 200 && xhr.status < 300) {
-          resolve(xhr)
+        if (xhr.status >= 200 && xhr.status < 300) {
+          try {
+            const responseData = JSON.parse(xhr.responseText)
+            resolve(responseData)
+          } catch (error) {
+            resolve(xhr.responseText)
+          }
         } else {
-          reject(new Error(`Запрос отменен статус ${xhr.status}`))
+          reject({
+            status: xhr.status,
+            responseText: xhr.responseText,
+            statusText: xhr.statusText,
+          } as XHRError)
         }
       }
 
-      xhr.onabort = () => {
-        reject(new Error('Прервано хз чем'))
-      }
-      xhr.onerror = () => {
-        reject(new Error('Network error'))
-      }
-      xhr.ontimeout = () => {
-        reject(new Error('Время истекло'))
-      }
+      xhr.onabort = () => reject(new Error('Request aborted'))
+      xhr.onerror = () => reject(new Error('Network error'))
+      xhr.ontimeout = () => reject(new Error('Request timed out'))
 
       if (isGet || !data) {
         xhr.send()
+      } else if (data instanceof FormData) {
+        xhr.send(data)
       } else {
         xhr.send(JSON.stringify(data))
       }

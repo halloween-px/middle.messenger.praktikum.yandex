@@ -7,28 +7,49 @@ import {
   conversationSearchTemplate,
 } from './conversation.tmpl'
 import './conversation.scss'
+import { convertDataToTime } from '../../utils/helpres'
 
-interface ConversionPorps {
+export interface ConversionType {
+  id: number
+  title: string
   avatar: Block
-  name: string
-  lastTime: string
-  message: string
-  unreadCnt: string
+  unread_count: number
+  created_by?: number
+  active?: boolean
+  last_message: {
+    user?: {
+      first_name?: string
+      second_name?: string
+      avatar?: string
+      email?: string
+      login?: string
+      phone?: string
+    }
+    time: string
+    content: string
+  }
 }
 
 interface ConversationHeaderProps {
   avatar: Block
-  name: string
+  title: string
+  users: Block[]
   actions: Block[]
 }
 
 interface ConversationListProps {
-  conversation: Block[]
+  conversations: Block[]
 }
 
 export class Conversation extends Block {
-  constructor(props: ConversionPorps) {
-    super(props)
+  constructor(props: ConversionType) {
+    super({
+      ...props,
+      last_message: {
+        ...props.last_message,
+        time: convertDataToTime(props.last_message.time),
+      },
+    })
   }
 
   render() {

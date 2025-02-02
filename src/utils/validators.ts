@@ -1,5 +1,5 @@
 export interface ValidatorType {
-  [key: string]: (value: string) => string | null
+  [key: string]: (value: string, allValues?: Record<string, string>) => string | null
 }
 
 const сheckName = (value: string) => {
@@ -9,8 +9,13 @@ const сheckName = (value: string) => {
     : 'Имя должно быть на латинице или кириллице, первая буква заглавная, без пробелов и цифр, допустим только дефис.'
 }
 
-const checkPassword = (value: string) => {
+const checkPassword = (value: string, allValues?: Record<string, string>) => {
   const regex = /^(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,40}$/
+
+  if (allValues && allValues.password && value !== allValues.password) {
+    return 'Пароли не совпадают'
+  }
+
   return regex.test(value)
     ? null
     : 'Пароль должен быть от 8 до 40 символов, содержать хотя бы одну заглавную букву и цифру.'
@@ -40,5 +45,14 @@ export const Validators: ValidatorType = {
   },
   message: value => {
     return value.trim() !== '' ? null : 'Сообщение не должно быть пустым.'
+  },
+  text: value => {
+    return value.trim() !== '' ? null : 'Сообщение не должно быть пустым.'
+  },
+  file: value => {
+    const format = value.split('.')
+    return ['jpg', 'png', 'jpeg', 'wepb'].includes(format[format.length - 1])
+      ? null
+      : 'Формат должен быть jpg | png | jpeg | wepb'
   },
 }

@@ -6,6 +6,9 @@ import { userInputInfoProps, userInputsPasswordsProps } from '../../../component
 import { Block } from '../../../lib/block'
 import '../auth.scss'
 import { Validators } from '../../../utils/validators'
+import userAuthController from '../../../controllers/auth-controller'
+import { AuthSignUpType } from '../../../api/auth-api'
+import buttonAsync from '../../../components/button/buttonAsync'
 
 class Register extends Block {
   constructor() {
@@ -21,7 +24,7 @@ class Register extends Block {
     const userRepeatPassword = new InputFloatingLabel(userRepeatPasswordProps)
     const userPhone = new InputFloatingLabel(userPhoneProps)
     const userSubName = new InputFloatingLabel(secondNameProps)
-    const btnRegister = new Button(btnRegisterProps)
+    const btnRegister = new buttonAsync(btnRegisterProps)
     const btnAuth = new Button(btnAuthProps)
 
     super({
@@ -30,6 +33,9 @@ class Register extends Block {
         buttons: [btnRegister, btnAuth],
         title: 'Регистрация',
         validators: Validators,
+        onSubmit: async data => {
+          userAuthController.register(data as unknown as AuthSignUpType)
+        },
       }),
     })
   }

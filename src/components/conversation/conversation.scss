@@ -35,6 +35,14 @@
       color: $white;
       font-size: 11px;
       align-self: flex-end;
+
+      &[data-count='0'] {
+        display: none;
+      }
+
+      &::before {
+        content: attr(data-count);
+      }
     }
 
     &-name {
@@ -88,9 +96,36 @@
   &-header {
     width: 100%;
     align-items: center;
+    height: 63px;
+
+    .conversation-content {
+      flex: 1;
+    }
+
+    .conversation-content-name {
+      text-wrap: nowrap;
+    }
 
     &-actions {
-      margin-left: auto;
+      margin-left: 12px;
+    }
+
+    &-users {
+      display: flex;
+      margin-left: 24px;
+      flex: 0 1 100%;
+      padding-left: 24px;
+      border-left: 2px solid $border-color;
+
+      .avatar {
+        margin-left: -12px;
+        border: 2px solid $color-primary-light;
+        border-radius: 50rem;
+
+        &:first-child {
+          margin-left: 0;
+        }
+      }
     }
   }
 }

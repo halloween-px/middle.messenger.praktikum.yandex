@@ -1,18 +1,18 @@
 export const convarsationTemplate = /*html*/ `
-  <div class="conversation">
+  <div class="conversation {{#if active}}active{{/if}}" id="{{id}}">
     {{#if avatar}}
         {{{avatar}}}
     {{/if}}
     <div class="conversation-content">
       <div class="conversation-content-info">
-        <h6 class="conversation-content-name">{{name}}</h6>
-        <time class="conversation-content-last-time">{{lastTime}}</time>
+        <h6 class="conversation-content-name">{{title}}</h6>
+        <time class="conversation-content-last-time">{{last_message.time}}</time>
       </div>
       <div class="conversation-content-body">
         <h6 class="conversation-content-message">
-          {{message}}
+          {{last_message.content}}
         </h6>
-        <time class="conversation-content-unread">{{unreadCnt}}</time>
+        <time class="conversation-content-unread" data-count="{{unread_count}}"></time>
       </div>
     </div>
   </div>
@@ -24,7 +24,10 @@ export const conversationHeaderTemplate = /*html*/ `
         {{{avatar}}}
     {{/if}}
     <div class="conversation-content">
-      <h6 class="conversation-content-name">{{name}}</h6>
+      <h6 class="conversation-content-name">{{title}}</h6>
+    </div>
+    <div class="conversation-header-users">
+      {{{users}}}
     </div>
     <div class="conversation-header-actions">
       {{{actions}}}
@@ -34,7 +37,7 @@ export const conversationHeaderTemplate = /*html*/ `
 
 export const conversationListTemplate = /*html*/ `
   <div class="conversation-list">
-    {{{conversation}}}
+    {{{conversations}}}
   </div>
 `
 

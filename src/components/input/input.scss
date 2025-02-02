@@ -25,6 +25,11 @@
     margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
+    position: relative;
+
+    .form-label {
+      flex: 0 1 100%;
+    }
 
     &.form-error {
       margin-bottom: 24px;
@@ -125,5 +130,19 @@
     border-radius: 50rem;
     background-color: $light;
     padding: 10px 20px;
+  }
+
+  .input-file {
+    text-align: center;
+
+    .form-control {
+      display: none;
+    }
+
+    .form-labe {
+      font-size: $text-sm;
+      color: $color-primary;
+      text-align: center;
+    }
   }
 }

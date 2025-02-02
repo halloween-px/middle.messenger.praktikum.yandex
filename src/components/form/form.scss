@@ -4,6 +4,14 @@
   box-shadow: $box-shadow;
   max-width: 340px;
   width: 100%;
+  position: relative;
+
+  &-wrapper {
+    min-height: 450px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 32px;
+  }
 
   &-plain {
     border-radius: 0;
@@ -12,6 +20,23 @@
   }
 
   &-title {
+    margin-bottom: 8px;
     text-align: center;
+  }
+
+  &-error-message {
+    position: absolute;
+    color: $red;
+    top: 10px;
+    left: 10px;
+    font-size: $text-xs;
+  }
+
+  &-control {
+    width: 100%;
+  }
+
+  .btn-area {
+    margin-top: auto;
   }
 }

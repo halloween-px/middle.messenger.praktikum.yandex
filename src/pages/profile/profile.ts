@@ -3,16 +3,34 @@ import { userInputInfoProps, userInputsPasswordsProps } from '../../components/i
 import { InputGroup } from '../../components/input/input'
 import Button from '../../components/button/button'
 import { Block } from '../../lib/block'
-import Avatar from '../../components/avatar/avatar'
+import Avatar, { getAvatar } from '../../components/avatar/avatar'
 import MainForm from '../../components/form/form'
 import { Link } from '../../components/link/link'
 import { ProfileTemplate } from './profile.tmlp'
 import { Validators } from '../../utils/validators'
-
-//Скорее всего реализация обновления пропсов неправильная, но по другому я не придумал пока что, так что кнопка назад совершенно не работает
+import { Router, RouterPath } from '../../router/router'
+import authController from '../../controllers/auth-controller'
+import { ModalChangeAvatar } from '../../components/modal/modals'
+import userController, { UserPasswordType, UserType } from '../../controllers/user-controller'
+import { connect } from '../../lib/connect'
+import store from '../../store/store'
 
 class Profile extends Block {
   constructor() {
+    userController.getUser()
+
+    const _Avatar = connect(state => ({
+      src: getAvatar(state.user?.avatar as string),
+      size: 'xl',
+      name: state.user?.first_name,
+      changeAvatar: true,
+      events: {
+        click: () => {
+          new ModalChangeAvatar({ changeAvatarType: 'changeUser' }).open()
+        },
+      },
+    }))(Avatar)
+
     const getInputsInfo = (changeUserInfo = true) => {
       const { userLoginProps, userEmailProps, firstNameProps, secondNameProps, userPhoneProps, userDisplayNameProps } =
         userInputInfoProps
@@ -20,32 +38,32 @@ class Profile extends Block {
       const userLogin = new InputGroup({
         ...userLoginProps,
         isReadonly: changeUserInfo,
-        value: 'ivanivanov',
+        value: store.getState().user?.login,
       })
       const userEmail = new InputGroup({
         ...userEmailProps,
         isReadonly: changeUserInfo,
-        value: 'pochta@yandex.ru',
+        value: store.getState().user?.email,
       })
       const firstName = new InputGroup({
         ...firstNameProps,
         isReadonly: changeUserInfo,
-        value: 'Иван',
+        value: store.getState().user?.first_name,
       })
       const secondName = new InputGroup({
         ...secondNameProps,
         isReadonly: changeUserInfo,
-        value: 'Иванов',
+        value: store.getState().user?.second_name,
       })
       const userPhone = new InputGroup({
         ...userPhoneProps,
         isReadonly: changeUserInfo,
-        value: '+79099673030',
+        value: store.getState().user?.phone,
       })
       const userDisplayName = new InputGroup({
         ...userDisplayNameProps,
         isReadonly: changeUserInfo,
-        value: 'Иван',
+        value: store.getState().user?.display_name,
       })
 
       return [userLogin, userEmail, firstName, secondName, userPhone, userDisplayName]
@@ -70,7 +88,50 @@ class Profile extends Block {
       return [userOldPassword, userNewPassword, userRepeatNewPassword]
     }
 
-    const defaultInputs = getInputsInfo()
+    let defaultInputs = getInputsInfo()
+
+    const _Form = connect(state => {
+      defaultInputs = getInputsInfo()
+      const nameForm = state.formName as 'change-profile-data' | 'change-profile-password'
+
+      return {
+        formError: state.formError,
+        inputs: defaultInputs,
+        classNames: 'form-plain',
+        validators: Validators,
+        onSubmit: async (data: UserType | UserPasswordType) => {
+          if (nameForm === 'change-profile-data') {
+            await userController.changeProfile(data as UserType)
+            this.children.form.setLists({
+              inputs: defaultInputs,
+              buttons: [],
+            })
+            this.setProps({ links: true })
+          }
+
+          if (nameForm === 'change-profile-password') {
+            const passwords = data as UserPasswordType
+
+            try {
+              await userController.changePassword({
+                oldPassword: passwords.oldPassword,
+                newPassword: passwords.password as string,
+              })
+              this.children.form.setLists({
+                inputs: defaultInputs,
+                buttons: [],
+              })
+              this.setProps({ links: true })
+            } catch (error) {
+              const err = error as Record<string, string>
+              if (err.reason === 'Password is incorrect') {
+                store.set('formError', 'Некоректный пароль')
+              }
+            }
+          }
+        },
+      }
+    })(MainForm)
 
     super({
       buttonBack: new Button({
@@ -79,7 +140,7 @@ class Profile extends Block {
         events: {
           click: () => {
             if (defaultInputs === this.children.form.lists.inputs) {
-              window.location.hash = ''
+              new Router().go(RouterPath.chat)
             } else {
               this.children.form.setLists({
                 inputs: defaultInputs,
@@ -90,17 +151,14 @@ class Profile extends Block {
           },
         },
       }),
-      avatar: new Avatar({ size: 'xl', name: 'Иван' }),
-      form: new MainForm({
-        inputs: defaultInputs,
-        classNames: 'form-plain',
-        validators: Validators,
-      }),
+      avatar: new _Avatar({}),
+      form: new _Form({}),
       linkChangeData: new Link({
         label: 'Изменить данные',
         href: '#',
         className: 'link-primary',
         onClick: () => {
+          store.set('formName', 'change-profile-data')
           const inputs = getInputsInfo(false)
           this.children.form.setLists({
             inputs,
@@ -123,10 +181,17 @@ class Profile extends Block {
         href: '#',
         className: 'link-primary',
         onClick: () => {
+          store.set('formName', 'change-profile-password')
           const inputs = getInputsPassword()
           this.children.form.setLists({
             inputs,
-            buttons: [new Button({ label: 'Сохранить', className: 'btn-primary text-center', type: 'submit' })],
+            buttons: [
+              new Button({
+                label: 'Сохранить',
+                className: 'btn-primary text-center',
+                type: 'submit',
+              }),
+            ],
           })
           this.setProps({
             links: false,
@@ -137,6 +202,9 @@ class Profile extends Block {
         label: 'Выйти',
         href: '#',
         className: 'link-red',
+        onClick: () => {
+          authController.logout()
+        },
       }),
       links: true,
     })
@@ -147,4 +215,4 @@ class Profile extends Block {
   }
 }
 
-export default Profile
+export default connect(() => ({}))(Profile)

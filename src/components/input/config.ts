@@ -84,14 +84,12 @@ export const userInputsPasswordsProps = {
   userNewPasswordProps: {
     ...userPasswordProps,
     id: 'user_new_password',
-    name: 'newPassword',
     label: 'Новый пароль',
   },
 
   userRepeatNewPasswordProps: {
     ...userPasswordProps,
-    id: 'user_repeat_new_password',
-    name: 'repeatNewPassword',
+    id: 'user_repeat_password',
     label: 'Повторите пароль',
   },
 }

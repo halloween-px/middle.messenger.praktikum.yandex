@@ -48,7 +48,7 @@ export class Block {
     this.settings = propsAndChildren.settings || {}
     this.children = children
     this.lists = this._makePropsProxy({ ...lists })
-    this.props = this._makePropsProxy({ ...props, id: this._id })
+    this.props = this._makePropsProxy({ ...props })
     this.eventBus = () => eventBus
 
     this._registerEvents(eventBus)
@@ -194,7 +194,7 @@ export class Block {
         if (item instanceof Block) {
           listContent.content.append(item.getContent())
         } else {
-          listContent.content.append(`${item}`)
+          listContent.content.append(document.createTextNode(String(item)))
         }
       })
 
@@ -229,13 +229,18 @@ export class Block {
 
   setProps = (nextProps: BlockProps) => {
     if (!nextProps) return
+    const oldProps = { ...this.props }
 
-    Object.assign(this.props, nextProps)
+    this.props = this._makePropsProxy({
+      ...this.props,
+      ...nextProps,
+    })
+
+    this.eventBus().emit(Block.EVENTS.FLOW_CDU, oldProps, this.props)
   }
 
   setLists = (nextLists: BlockProps) => {
     if (!nextLists) return
-
     Object.assign(this.lists, nextLists)
   }
 
@@ -249,15 +254,15 @@ export class Block {
 
   show() {
     const content = this.getContent()
-    if (content) {
-      content.style.display = 'block'
+    if (content && content.classList.contains('d-none')) {
+      content.classList.remove('d-none')
     }
   }
 
   hide() {
     const content = this.getContent()
     if (content) {
-      content.style.display = 'none'
+      content.classList.add('d-none')
     }
   }
 }

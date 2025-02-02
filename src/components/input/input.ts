@@ -1,9 +1,15 @@
-import { InputFloatingLabelTempalte, InputGroupTemplate, InputSearchTemplate, InputTemplate } from './input.tmpl'
+import {
+  InputFileTemplate,
+  InputFloatingLabelTempalte,
+  InputGroupTemplate,
+  InputSearchTemplate,
+  InputTemplate,
+} from './input.tmpl'
 import './input.scss'
-import { Block } from '../../lib/block'
+import { Block, BlockProps } from '../../lib/block'
 import { ValidatorType } from '../../utils/validators'
 
-interface InputProps {
+interface InputProps extends BlockProps {
   name: string
   type: string
   isRequired?: boolean
@@ -18,11 +24,13 @@ interface InputProps {
 
 export class Input extends Block {
   constructor(props: InputProps) {
-    super(props)
-    this._addBlurListener()
+    super({
+      ...props,
+    })
+    this._addListener()
   }
 
-  private _addBlurListener() {
+  private _addListener() {
     if (!this.props.validators) return
     const input =
       this.getContent().tagName === 'INPUT'
@@ -84,5 +92,15 @@ export class InputSearch extends Input {
 
   render() {
     return this.compile(InputSearchTemplate, this.props)
+  }
+}
+
+export class InputFile extends Input {
+  constructor(props: InputProps) {
+    super(props)
+  }
+
+  render() {
+    return this.compile(InputFileTemplate, this.props)
   }
 }

@@ -18,6 +18,10 @@
     justify-content: center;
   }
 
+  .fa-spinner {
+    animation: rotate 0.4s linear infinite;
+  }
+
   [class*='fa-'] {
     font-size: 0.8em;
   }
@@ -75,5 +79,15 @@
 
   &-text-start {
     text-align: start;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }

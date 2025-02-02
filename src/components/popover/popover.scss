@@ -1,0 +1,14 @@
+.popover {
+  position: absolute;
+  padding: 15px;
+  border-radius: $border-radius;
+  background-color: $white;
+  z-index: 10;
+  box-shadow: $box-shadow;
+
+  &-header-chat {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+  }
+}

@@ -1,11 +1,17 @@
 import MainForm from '../../../components/form/form'
 import { InputFloatingLabel } from '../../../components/input/input'
 import { userInputInfoProps, userInputsPasswordsProps } from '../../../components/input/config'
-import '../auth.scss'
 import Button from '../../../components/button/button'
 import { AuthTemplate } from '../auth.tmpl'
 import { Block } from '../../../lib/block'
 import { Validators } from '../../../utils/validators'
+import { Router, RouterPath } from '../../../router/router'
+import '../auth.scss'
+import AuthController from '../../../controllers/auth-controller'
+import { AuthSingInType } from '../../../api/auth-api'
+import ButtonAsync from '../../../components/button/buttonAsync'
+import { connect } from '../../../lib/connect'
+import store from '../../../store/store'
 
 class Login extends Block {
   constructor() {
@@ -20,19 +26,27 @@ class Login extends Block {
     const btnRegisterAccProps = {
       className: 'btn-link',
       label: 'Нет аккаунта',
+      events: {
+        click: () => {
+          new Router('.app').go(RouterPath.register)
+        },
+      },
     }
 
+    AuthController.logout()
+
+    const Form = connect(state => ({ formError: state.formError }))(MainForm)
+
     super({
-      form: new MainForm({
+      form: new Form({
+        formError: store.getState().formError,
         title: 'Вход',
         inputs: [new InputFloatingLabel(userLoginProps), new InputFloatingLabel(userPasswordProps)],
         validators: Validators,
-        buttons: [
-          new Button({
-            ...btnAuthProps,
-          }),
-          new Button(btnRegisterAccProps),
-        ],
+        buttons: [new ButtonAsync(btnAuthProps), new Button(btnRegisterAccProps)],
+        onSubmit(data: unknown) {
+          AuthController.login(data as unknown as AuthSingInType)
+        },
       }),
     })
   }
@@ -43,47 +57,3 @@ class Login extends Block {
 }
 
 export default Login
-// content: any
-
-//   constructor({ content }) {
-//     this.content = content
-
-//     this.render()
-//   }
-
-//   render() {
-//     const { userLoginProps } = userInputInfoProps
-//     const { userPasswordProps } = userInputsPasswordsProps
-
-//     const btnAuthProps = {
-//       className: 'btn-primary',
-//       label: 'Авторизоваться',
-//     }
-
-//     const btnRegisterAccProps = {
-//       className: 'btn-link',
-//       label: 'Нет аккаунта',
-//     }
-
-//     const userName = new InputFloatingLabel(userLoginProps).render()
-//     const userPassword = new InputFloatingLabel(userPasswordProps).render()
-//     const btnAuth = new Button(btnAuthProps)
-
-//     const btnRegisterAcc = new Button(btnRegisterAccProps).render()
-
-//     const loginFormProps = {
-//       inputs: [userName, userPassword],
-//       buttons: [btnAuth.render(), btnRegisterAcc],
-//       title: 'Вход',
-//     }
-//     const form = new MainForm(loginFormProps).render()
-
-//     setTimeout(() => {
-//       btnAuth.setProps({
-//         label: 'Hellooooo',
-//       })
-//     }, 1000)
-
-//     const template = Handlebars.compile(AuthTemplate)
-//     this.content.innerHTML = template({ form })
-//   }

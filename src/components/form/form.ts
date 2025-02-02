@@ -10,6 +10,7 @@ interface Props extends BlockProps {
   title?: string
   buttons?: Block[]
   validators?: ValidatorType
+  formError?: string
   onSubmit?: (data: Record<string, string>) => void
 }
 
@@ -23,6 +24,7 @@ class MainForm extends Block {
     super({
       ...props,
       events: {
+        ...props.events,
         submit: e => this._addSubmitListener(e),
       },
     })
@@ -33,8 +35,9 @@ class MainForm extends Block {
     const element = this.getContent()
     if (!element) return
     e.preventDefault()
+    let error = ''
 
-    const data = new FormData()
+    const data: Record<string, string> = {}
     let isFormValid = true
 
     this.lists.inputs.forEach((input: Input) => {
@@ -45,19 +48,18 @@ class MainForm extends Block {
 
       const value = inputElement.value
       const name = inputElement.name
-      const error = this.props.validators[name](value)
+      const allValues = data
+      error = this.props.validators[name](value, allValues)
 
       if (error) {
         input._showError(error)
         isFormValid = false
       } else {
-        data.append(name, value)
+        data[name] = value
       }
     })
 
     if (isFormValid) {
-      console.log(Object.fromEntries(data.entries()))
-
       if (this.props.onSubmit) {
         this.props.onSubmit(data)
       }

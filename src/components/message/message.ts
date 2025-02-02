@@ -5,13 +5,25 @@ import Button from '../button/button'
 import { Input } from '../input/input'
 import { Validators } from '../../utils/validators'
 import { FormMessage } from '../form/form'
+import { convertDataToTime } from '../../utils/helpres'
 
-interface MessageProps {
+export interface MessageType {
   direction: 'incoming' | 'outgoing'
   message: string
   className?: string
   check: boolean
   time: string
+}
+
+export interface OldMessageType {
+  chat_id?: number
+  content: string
+  file?: null | File
+  id?: number
+  is_read: boolean
+  time: string
+  type?: string
+  user_id?: number
 }
 
 interface MessageListProps {
@@ -22,13 +34,15 @@ interface MessageInputProps {
   buttonMedia?: Block
   input?: Block
   buttonSend?: Block
+  onInput?: () => void
+  onSubmit?: <T extends Record<string, unknown>>(data: T) => void
 }
 
 export class Message extends Block {
-  constructor(props: MessageProps) {
+  constructor(props: MessageType) {
     super({
       ...props,
-      check: props.direction === 'outgoing' && props.check,
+      time: convertDataToTime(props.time),
       className: `${props.direction} ${props.className ? props.className : ''}`,
     })
   }
@@ -65,7 +79,14 @@ export class MessageInput extends Block {
         classNames: 'message-form',
         validators: Validators,
         buttonMedia:
-          props?.buttonMedia || new Button({ icon: 'fa-regular fa-paperclip', className: 'btn-icon btn-icon-xl' }),
+          props?.buttonMedia || new Button({ icon: 'fa-solid fa-paperclip', className: 'btn-icon btn-icon-xl' }),
+        onSubmit: data => {
+          const input = document.querySelector('.message-form .form-message') as HTMLInputElement
+          input.value = ''
+          if (props && typeof props.onSubmit === 'function') {
+            props.onSubmit(data)
+          }
+        },
         inputs: [
           new Input({
             id: 'message-input',
@@ -74,6 +95,13 @@ export class MessageInput extends Block {
             placeholder: 'Сообщение',
             className: 'form-message',
             validators: Validators,
+            events: {
+              input: () => {
+                if (props && typeof props.onInput === 'function') {
+                  props.onInput()
+                }
+              },
+            },
           }),
         ],
         buttonSend:
