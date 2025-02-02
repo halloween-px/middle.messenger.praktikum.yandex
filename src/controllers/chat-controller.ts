@@ -1,4 +1,4 @@
-import { EventWSTransport, MessageIncomingType, MessageOutgoingType, WSTransport } from './../utils/wsTransport'
+import { EventWSTransport, MessageOutgoingType, WSTransport } from './../utils/wsTransport'
 import { addUsersToChatType, ChatAPI } from '../api/chat-api'
 import { ConversionType } from '../components/conversation/conversation'
 import store from '../store/store'
