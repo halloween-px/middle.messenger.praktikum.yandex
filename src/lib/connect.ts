@@ -15,7 +15,7 @@ export function connect<T extends BlockProps>(mapStateToProps: (state: StoreType
 
         store.on(StoreEvent.Updated, () => {
           let newState = mapStateToProps(store.getState())
-          console.log(state === state)
+
           if (!isEqual(state, newState)) {
             const newList: Record<string, unknown> = {}
             Object.entries(newState).forEach(([key, value]) => {

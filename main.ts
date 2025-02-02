@@ -25,30 +25,3 @@ class App {
 document.addEventListener('DOMContentLoaded', () => {
   new App().init()
 })
-
-// const bubbleSort = arr => {
-//   for (let i = 0; i < arr.length; i++) {
-//     for (let k = 0; k < arr.length; k++) {
-//       if (arr[k] > arr[k + 1]) {
-//         let temp = arr[k]
-//         arr[k] = arr[k + 1]
-//         arr[k + 1] = temp
-//       }
-//     }
-//   }
-
-//   return arr
-// }
-
-// console.log(bubbleSort([5, 2, 9, 1, 5, 6]))
-
-// const paindromStr = str => {
-//   for (let i = 0; i < str.length; i++) {
-//     const start = str[i]
-//     const end = str[str.length - (i + 1)]
-
-//     if (start !== end) return false
-//   }
-
-//   return true
-// }
