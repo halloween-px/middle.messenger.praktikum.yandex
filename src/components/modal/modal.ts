@@ -5,6 +5,7 @@ import { renderDOM } from '../../utils/renderDom'
 
 export interface ModalType {
   content?: Block | string
+  className?: string
 }
 
 export class Modal extends Block {

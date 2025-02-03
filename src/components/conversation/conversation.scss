@@ -36,7 +36,8 @@
       font-size: 11px;
       align-self: flex-end;
 
-      &[data-count='0'] {
+      &[data-count='0'],
+      &[data-count=''] {
         display: none;
       }
 

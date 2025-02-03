@@ -47,8 +47,8 @@ export class Block {
     this._id = uuidv4()
     this.settings = propsAndChildren.settings || {}
     this.children = children
-    this.lists = this._makePropsProxy({ ...lists })
-    this.props = this._makePropsProxy({ ...props })
+    this.lists = { ...lists }
+    this.props = { ...props }
     this.eventBus = () => eventBus
 
     this._registerEvents(eventBus)
@@ -231,10 +231,10 @@ export class Block {
     if (!nextProps) return
     const oldProps = { ...this.props }
 
-    this.props = this._makePropsProxy({
+    this.props = {
       ...this.props,
       ...nextProps,
-    })
+    }
 
     this.eventBus().emit(Block.EVENTS.FLOW_CDU, oldProps, this.props)
   }

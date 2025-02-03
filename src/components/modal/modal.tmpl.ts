@@ -1,5 +1,5 @@
 export const ModalTemplate = `
-    <div class="modal">
+    <div class="modal {{className}}">
         <div class="modal-dialog">
             {{{content}}}
         </div>

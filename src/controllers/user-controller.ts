@@ -33,7 +33,7 @@ class UserController {
       const user = (await userApi.getUser()) as UserType
       store.set('user', user)
     } catch (error) {
-      throw new Error(`failed user:${error}`)
+      new Error(`failed user:${error}`)
     }
   }
 
@@ -42,7 +42,7 @@ class UserController {
       const user = (await userApi.searchUser(data)) as UserType[]
       return user[0]
     } catch (error) {
-      throw new Error(`failed searchUser:${error}`)
+      new Error(`failed searchUser:${error}`)
     }
   }
 
@@ -51,7 +51,7 @@ class UserController {
       const user = (await userApi.uploadAvatar(data)) as UserType
       store.set('user', { ...store.getState().user, avatar: user.avatar })
     } catch (error) {
-      throw new Error(`failed uploadUser:${error}`)
+      new Error(`failed uploadUser:${error}`)
     }
   }
 
@@ -60,7 +60,7 @@ class UserController {
       const user = (await userApi.changeProfile(data)) as UserType
       store.set('user', user)
     } catch (error) {
-      throw new Error(`failed uploadUser:${error}`)
+      new Error(`failed uploadUser:${error}`)
     }
   }
 
@@ -68,7 +68,7 @@ class UserController {
     try {
       await userApi.changePassword(data)
     } catch (error) {
-      throw new Error(`failed uploadUser:${error}`)
+      new Error(`failed uploadUser:${error}`)
     }
   }
 

@@ -49,3 +49,10 @@ export const InputFileTemplate = `
         <label class="form-label" for="{{id}}">{{{label}}}</label>
     </div>
 `
+
+export const InputCheckTemplate = `
+    <div class="input-check">
+        ${InputTemplate}
+        <label class="form-label" for="{{id}}">{{{label}}}</label>
+    </div>
+`

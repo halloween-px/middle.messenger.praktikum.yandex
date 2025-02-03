@@ -31,10 +31,13 @@ class MainForm extends Block {
   }
 
   private _addSubmitListener(e: Event) {
-    if (!this.props.validators) return
+    e.preventDefault()
+    if (!this.props.validators) {
+      this.props.onSubmit(this)
+      return
+    }
     const element = this.getContent()
     if (!element) return
-    e.preventDefault()
     let error = ''
 
     const data: Record<string, string> = {}

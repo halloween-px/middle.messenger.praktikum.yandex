@@ -1,4 +1,4 @@
-import { Block } from '../../lib/block'
+import { Block, BlockProps } from '../../lib/block'
 import { InputSearch } from '../input/input'
 import {
   convarsationTemplate,
@@ -9,7 +9,7 @@ import {
 import './conversation.scss'
 import { convertDataToTime } from '../../utils/helpres'
 
-export interface ConversionType {
+export interface ConversionType extends BlockProps {
   id: number
   title: string
   avatar: Block

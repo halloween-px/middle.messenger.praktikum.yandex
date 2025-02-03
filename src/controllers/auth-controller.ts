@@ -10,7 +10,7 @@ class AuthController {
       await authApi.register(data)
       new Router().go(RouterPath.chat)
     } catch (error) {
-      throw new Error(`failed register: ${error}`)
+      new Error(`failed register: ${error}`)
     }
   }
 
@@ -28,7 +28,7 @@ class AuthController {
         store.set('formError', `${JSON.parse(err.responseText).reason}`)
       }
 
-      throw new Error(`failed login: ${err.responseText}`)
+      new Error(`failed login: ${err.responseText}`)
     }
   }
 
@@ -37,7 +37,7 @@ class AuthController {
       await authApi.logout()
       new Router().go(RouterPath.login)
     } catch (error) {
-      throw new Error(`failed logout: ${error}`)
+      new Error(`failed logout: ${error}`)
     }
   }
 }

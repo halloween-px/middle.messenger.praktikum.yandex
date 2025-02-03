@@ -34,7 +34,7 @@ export class ChatAPI extends BaseAPI {
   }
 
   deleteUsersToChat(data: addUsersToChatType) {
-    return chatAPIInstance.put('/chats/users', {
+    return chatAPIInstance.delete('/chats/users', {
       data,
       headers: { 'Content-type': 'application/json', Accept: 'application/json' },
       credentials: true,
@@ -52,9 +52,8 @@ export class ChatAPI extends BaseAPI {
     })
   }
 
-  delete(id: number): void {
-    console.log(id)
-    chatAPIInstance.delete('/chats', {
+  delete(id: number) {
+    return chatAPIInstance.delete('/chats', {
       credentials: true,
       data: { chatId: id },
       headers: { 'Content-type': 'application/json', Accept: 'application/json' },

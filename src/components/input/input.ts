@@ -1,4 +1,5 @@
 import {
+  InputCheckTemplate,
   InputFileTemplate,
   InputFloatingLabelTempalte,
   InputGroupTemplate,
@@ -102,5 +103,15 @@ export class InputFile extends Input {
 
   render() {
     return this.compile(InputFileTemplate, this.props)
+  }
+}
+
+export class InputCheckBox extends Input {
+  constructor(props: InputProps) {
+    super(props)
+  }
+
+  render() {
+    return this.compile(InputCheckTemplate, this.props)
   }
 }

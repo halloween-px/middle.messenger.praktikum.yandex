@@ -3,7 +3,7 @@ import { addUsersToChatType, ChatAPI } from '../api/chat-api'
 import { ConversionType } from '../components/conversation/conversation'
 import store from '../store/store'
 import { MessageType, OldMessageType } from '../components/message/message'
-import { getStorage } from '../utils/storage'
+import { getStorage, setStorage } from '../utils/storage'
 import { cloneDeep } from '../utils/helpres'
 
 const chatApi = new ChatAPI()
@@ -15,13 +15,14 @@ export class ChatController {
   async createChat(data: { title: string }) {
     try {
       store.set('loading.button', true)
-      const { chatId } = (await chatApi.create(data)) as { chatId: number }
+      const { id } = (await chatApi.create(data)) as { id: number }
+
       store.set('conversations', [
         ...store.getState().conversations,
-        { id: chatId, title: data.title, avatar: '' } as unknown as ConversionType,
+        { id: id, title: data.title, avatar: '' } as unknown as ConversionType,
       ])
     } catch (error) {
-      throw new Error(`failed createChat:${error}`)
+      new Error(`failed createChat:${error}`)
     } finally {
       store.set('loading.button', false)
     }
@@ -47,7 +48,7 @@ export class ChatController {
       const conversations = await chatApi.request()
       store.set('conversations', conversations)
     } catch (error) {
-      throw new Error(`failed getChats:${error}`)
+      new Error(`failed getChats:${error}`)
     }
   }
 
@@ -97,7 +98,7 @@ export class ChatController {
         }
       })
     } catch (error) {
-      throw new Error(`failed connectToChat:${error}`)
+      new Error(`failed connectToChat:${error}`)
     }
   }
 
@@ -119,26 +120,26 @@ export class ChatController {
         await chatApi.addUsersToChat(data)
       }
     } catch (error) {
-      throw new Error(`failed addUsersToChat:${error}`)
+      new Error(`failed addUsersToChat:${error}`)
     }
   }
 
-  async deleteUsersToChat(userId: number) {
+  async deleteUsersToChat(usersId: number[]) {
     try {
       const chatId = store.getState().activeChat?.id
-      if (userId && chatId) {
+      if (usersId.length && chatId) {
         const data: addUsersToChatType = {
-          users: [userId],
+          users: usersId,
           chatId: chatId,
         }
 
         await chatApi.deleteUsersToChat(data)
-        const newUsersInChats = store.getState().usersChat.filter(user => user.id !== userId)
-        console.log(newUsersInChats)
+        const newUsersInChats = store.getState().usersChat.filter(user => !usersId.includes(Number(user.id)))
+
         store.set('usersChat', newUsersInChats)
       }
     } catch (error) {
-      throw new Error(`failed addUsersToChat:${error}`)
+      new Error(`failed addUsersToChat:${error}`)
     }
   }
 
@@ -147,7 +148,7 @@ export class ChatController {
       const users = await chatApi.getUsersInChat(id)
       store.set('usersChat', users)
     } catch (error) {
-      throw Error(`failed getUsersInChat:${error}`)
+      Error(`failed getUsersInChat:${error}`)
     }
   }
 
@@ -172,7 +173,7 @@ export class ChatController {
       )
       return chat
     } catch (error) {
-      throw Error(`failed getUsersInChat:${error}`)
+      Error(`failed getUsersInChat:${error}`)
     }
   }
 
@@ -183,9 +184,15 @@ export class ChatController {
 
   async deleteChat(chatId: number) {
     try {
-      return chatApi.delete(chatId)
+      await chatApi.delete(chatId)
+      store.set(
+        'conversations',
+        store.getState().conversations.filter(chat => chat.id !== chatId)
+      )
+      store.set('activeChat', null)
+      setStorage('chatId', '')
     } catch (error) {
-      throw Error(`failed delete Chat:${error}`)
+      Error(`failed delete Chat:${error}`)
     }
   }
 }

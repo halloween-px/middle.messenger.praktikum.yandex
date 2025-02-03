@@ -21,12 +21,14 @@ import userController from '../../controllers/user-controller'
 import { escapeHTML } from '../../utils/helpres'
 import { getStorage, setStorage } from '../../utils/storage'
 import { ModalChangeAvatar } from '../../components/modal/modals'
+import { Popover } from '../../components/popover/popover'
 
 class Chat extends Block {
   constructor() {
     chatController.init()
     userController.getUser()
 
+    let activePopover: Popover | null = null
     const _ConversationList = connect(state => {
       return {
         conversations: state.conversations.map(chat => {
@@ -42,6 +44,36 @@ class Chat extends Block {
             title: chat.title,
             unread_count: chat.unread_count,
             id: chat.id,
+            events: {
+              contextmenu: (e: Event) => {
+                e.preventDefault()
+                const event = e as MouseEvent
+                const x = event.clientX
+                const y = event.clientY
+
+                if (activePopover) {
+                  activePopover.close()
+                }
+
+                activePopover = new Popover({
+                  content: new Button({
+                    label: 'Удалить чат',
+                    className: 'btn-primary',
+                    events: {
+                      click: () => {
+                        chatController.deleteChat(chat.id)
+
+                        if (activePopover) {
+                          activePopover.close()
+                          activePopover = null
+                        }
+                      },
+                    },
+                  }),
+                })
+                activePopover.open(x, y)
+              },
+            },
           })
         }),
       }
