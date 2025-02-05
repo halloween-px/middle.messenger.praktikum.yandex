@@ -7,5 +7,8 @@ export const sidebarChatTemplate = /*html*/ `
         <div class="sidebar-content">
             {{{conversationList}}}
         </div>
+        <div class="sidebar-footer">
+            {{{btnCreateChat}}}
+        </div>
     </div>
 `

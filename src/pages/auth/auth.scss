@@ -5,24 +5,5 @@
 
   .form {
     margin: auto;
-
-    &-control {
-      width: 100%;
-    }
-
-    &-title {
-      margin-bottom: 8px;
-    }
-
-    &-wrapper {
-      min-height: 450px;
-      display: flex;
-      flex-direction: column;
-      row-gap: 32px;
-    }
-
-    .btn-area {
-      margin-top: auto;
-    }
   }
 }

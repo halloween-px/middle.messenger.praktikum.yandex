@@ -1,12 +1,27 @@
-import { Block } from '../../lib/block'
+import { BaseURL } from './../../api/base-api'
+import { Block, BlockProps } from '../../lib/block'
 import { avatarTemplate } from './avatar.tmpl'
 import './avatar.scss'
 
 type sizeAvatar = 'default' | 'xl' | 'sm'
 
-interface AvatarProps {
+interface AvatarProps extends BlockProps {
   size: sizeAvatar
   name?: string
+  src?: string
+  changeAvatar?: boolean
+}
+
+export const getAvatar = (src: string) => {
+  if (src) {
+    const substring = /resourcesnull/
+
+    if (substring.test(src)) {
+      src = '/images/no_image.png'
+    }
+
+    return BaseURL + '/resources' + src
+  }
 }
 
 class Avatar extends Block {

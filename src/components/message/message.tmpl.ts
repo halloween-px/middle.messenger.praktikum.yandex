@@ -9,7 +9,9 @@ export const MessageTemplate = /*html*/ `
 `
 export const MessageListTemplate = /*html*/ `
     <div class="message-list">
-        {{{messages}}}
+        <div class="message-list-wrapper">
+            {{{messages}}}
+        </div>
     </div>
 `
 

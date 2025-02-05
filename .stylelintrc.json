@@ -9,6 +9,7 @@
       {
         "ignoreAtRules": ["mixin", "include", "if"]
       }
-    ]
+    ],
+    "keyframe-block-no-duplicate-selectors": null
   }
 }

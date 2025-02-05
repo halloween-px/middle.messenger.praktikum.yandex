@@ -16,23 +16,3 @@ export const ProfileTemplate = `
     </div>
 </section>
 `
-
-// <form action="#" class="profile-form">
-// <div class="form-wrapper">
-//     {{#if changeUserInfo}}
-//         {{#each inputsUserInfo}}
-//             {{{this}}}
-//         {{/each}}
-//         {{{buttonSave}}}
-//     {{else if changePassword}}
-//         {{#each inputsUserPassword}}
-//             {{{this}}}
-//         {{/each}}
-//         {{{buttonSave}}}
-//     {{else}}
-//         {{#each inputsUserInfo}}
-//             {{{this}}}
-//         {{/each}}
-//     {{/if}}
-// </div>
-// </form>

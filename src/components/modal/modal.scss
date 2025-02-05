@@ -1,0 +1,39 @@
+.modal {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: rgba(black, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+
+  &-dialog {
+    border-radius: $border-radius;
+    background-color: $white;
+    width: 340px;
+  }
+
+  .form {
+    height: 257px;
+
+    &-wrapper {
+      min-height: 100%;
+      justify-content: center;
+      row-gap: 0;
+    }
+
+    &-title {
+      margin-bottom: 50px;
+    }
+
+    .btn-area {
+      margin-top: 33px;
+    }
+  }
+
+  &-remove-user {
+  }
+}

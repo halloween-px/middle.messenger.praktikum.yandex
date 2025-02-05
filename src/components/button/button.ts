@@ -4,7 +4,7 @@ import { Block, BlockProps } from '../../lib/block'
 
 type variantBtn = 'btn-primary' | 'btn-link' | 'btn-link-plain' | 'btn-text-sm' | (string & {})
 
-interface ButtonProps extends BlockProps {
+export interface ButtonProps extends BlockProps {
   className?: variantBtn
   icon?: string
   label?: string | Block

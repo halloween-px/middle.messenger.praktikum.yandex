@@ -23,5 +23,10 @@
       flex: 1;
       overflow: auto;
     }
+
+    .sidebar-footer {
+      padding: 9px;
+      border-top: 1px solid $border-color;
+    }
   }
 }

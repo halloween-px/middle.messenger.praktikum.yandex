@@ -6,6 +6,7 @@ interface SidebarChatProps {
   conversationSearch: Block
   conversationList: Block
   button: Block
+  btnCreateChat: Block
 }
 
 export class SidebarChat extends Block {

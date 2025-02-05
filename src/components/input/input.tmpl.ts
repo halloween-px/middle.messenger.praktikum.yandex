@@ -10,6 +10,7 @@ export const InputTemplate = `
             {{#if placeholder}} placeholder="{{placeholder}}" {{/if}}
         />
 `
+
 export const InputFloatingLabelTempalte = `
     <div class="form-floating">
         <div class="error-message"></div>
@@ -35,8 +36,23 @@ export const InputSearchTemplate = `
         <div class="error-message"></div>
         ${InputTemplate}
         <label class="form-label" for="{{id}}">
-            <i class="fa-regular fa-search icon"></i>
+            <i class="fa-solid fa-magnifying-glass"></i>
             <span class="label-text">Поиск</span>
         </label>
+    </div>
+`
+
+export const InputFileTemplate = `
+    <div class="input-file">
+     <div class="error-message"></div>
+        ${InputTemplate}
+        <label class="form-label" for="{{id}}">{{{label}}}</label>
+    </div>
+`
+
+export const InputCheckTemplate = `
+    <div class="input-check">
+        ${InputTemplate}
+        <label class="form-label" for="{{id}}">{{{label}}}</label>
     </div>
 `
