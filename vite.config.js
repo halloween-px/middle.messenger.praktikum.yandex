@@ -15,7 +15,8 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: '@import "./src/styles/main.scss";',
+        quietDeps: true,
+        additionalData: '@use "./src/styles/main.scss" as *;',
         silenceDeprecations: ['legacy-js-api'],
       },
     },

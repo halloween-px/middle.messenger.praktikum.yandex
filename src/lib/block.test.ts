@@ -55,7 +55,7 @@ describe('Block', () => {
 
   it('hide добавляет d-none', () => {
     block.hide()
-    expect(block.getContent().classList.contains('d-none')).to.be.false
+    expect(block.getContent().classList.contains('d-none')).to.be.true
   })
 
   it('Удаляет и добавляет обработчики событий', () => {
@@ -70,6 +70,6 @@ describe('Block', () => {
     const element = block.getContent()
     element.click()
 
-    expect(clickHandler.calledOnce).to.be.false
+    expect(clickHandler.calledOnce).to.be.true
   })
 })
