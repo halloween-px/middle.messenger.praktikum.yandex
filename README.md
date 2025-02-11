@@ -16,7 +16,11 @@ CHAT
 
 ## Технологии
 
-- **Frontend**: HTML, SCSS, TS, Handlebars, WebSocket для обмена сообщениями в реальном времени
+- **Frontend**: HTML, SCSS, TypeScript, Handlebars
+- **WebSocket**: для обмена сообщениями в реальном времени
+- **Тестирование**: Mocha, Chai, Sinon, ts-node
+- **Кодстайл**: ESLint, Prettier
+- **Git-хуки**: Husky
 
 ## Ссылки на страницы:
 
@@ -46,3 +50,4 @@ https://middle-messeng.netlify.app
    npm run build
    npm run lint
    npm run lint-fix
+   npm run test
