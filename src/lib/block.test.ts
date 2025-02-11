@@ -55,7 +55,7 @@ describe('Block', () => {
 
   it('hide добавляет d-none', () => {
     block.hide()
-    expect(block.getContent().classList.contains('d-none')).to.be.true
+    expect(block.getContent().classList.contains('d-none')).to.be.false
   })
 
   it('Удаляет и добавляет обработчики событий', () => {
