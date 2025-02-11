@@ -14,7 +14,7 @@
     "lint-fix": "eslint . --fix",
     "lint:styles": "stylelint 'src/**/*.scss' --fix",
     "test": "mocha --es-module-specifier-resolution=node --no-warnings",
-    "prepare": "husky"
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@types/chai": "^5.0.1",
@@ -28,7 +28,7 @@
     "eslint": "^9.17.0",
     "eslint-define-config": "^2.1.0",
     "globals": "^15.13.0",
-    "husky": "^9.1.7",
+    "husky": "^7.0.4",
     "jsdom": "^26.0.0",
     "jsdom-global": "^3.0.2",
     "lint-staged": "^15.4.3",
