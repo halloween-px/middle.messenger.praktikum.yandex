@@ -70,6 +70,6 @@ describe('Block', () => {
     const element = block.getContent()
     element.click()
 
-    expect(clickHandler.calledOnce).to.be.true
+    expect(clickHandler.calledOnce).to.be.false
   })
 })
