@@ -1,10 +1,10 @@
 import { defineConfig } from 'vite'
 import handlebars from 'vite-plugin-handlebars'
 import { resolve } from 'path'
-import { Crypto } from '@peculiar/webcrypto'
+import crypto from 'crypto'
 
 if (!globalThis.crypto) {
-  globalThis.crypto = new Crypto()
+  globalThis.crypto = crypto.webcrypto
 }
 
 export default defineConfig({
