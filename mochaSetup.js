@@ -7,3 +7,4 @@ const jsdom = new JSDOM('<!DOCTYPE html><html><body><div class="app"></div></bod
 global.window = jsdom.window
 global.document = jsdom.window.document
 global.XMLHttpRequest = jsdom.window.XMLHttpRequest
+global.FormData = window.FormData
