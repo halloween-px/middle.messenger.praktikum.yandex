@@ -1,4 +1,9 @@
 import { JSDOM } from 'jsdom'
+import { webcrypto } from 'crypto'
+
+if (!globalThis.crypto) {
+  globalThis.crypto = webcrypto
+}
 
 const jsdom = new JSDOM('<!DOCTYPE html><html><body><div class="app"></div></body></html>', {
   url: 'https://example.org',

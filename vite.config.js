@@ -6,10 +6,12 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true,
+    strictPort: true,
   },
   preview: {
     port: 3000,
     open: true,
+    strictPort: true,
   },
   plugins: [
     handlebars({
