@@ -91,6 +91,7 @@ export class WSTransport extends EventBus {
         }
 
         this.emit(EventWSTransport.Message, data as MessageIncomingType)
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {}
     })
   }

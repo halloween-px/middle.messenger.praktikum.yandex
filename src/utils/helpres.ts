@@ -40,7 +40,8 @@ function merge(lhs: PlainObject, rhs: PlainObject): PlainObject {
       } else {
         lhs[p] = rhs[p]
       }
-    } catch (e) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_error) {
       lhs[p] = rhs[p]
     }
   }

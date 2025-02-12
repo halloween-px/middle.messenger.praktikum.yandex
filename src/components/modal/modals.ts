@@ -120,6 +120,7 @@ export class ModalAddAndRemoveUserToChat extends Modal {
               })
             }
           } catch (error) {
+            new Error(`${error}`)
             store.set('formError', 'Такого пользователя не существует')
           }
 

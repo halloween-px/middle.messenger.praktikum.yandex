@@ -13,8 +13,13 @@
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "lint:styles": "stylelint 'src/**/*.scss' --fix",
-    "test": "mocha --es-module-specifier-resolution=node --no-warnings",
+    "test": "mocha --reporter spec --es-module-specifier-resolution=node --no-warnings",
     "prepare": "husky install"
+  },
+  "lint-staged": {
+    "**/*.{ts, js}": "npm run lint",
+    "**/*.test.ts": "npm run test --silent=false",
+    "**/*.scss": "npm run lint:styles"
   },
   "devDependencies": {
     "@types/chai": "^5.0.1",
@@ -22,13 +27,14 @@
     "@types/mocha": "^10.0.10",
     "@types/node": "^22.8.7",
     "@types/sinon": "^17.0.3",
-    "@typescript-eslint/eslint-plugin": "^8.18.0",
-    "@typescript-eslint/parser": "^8.18.0",
+    "@typescript-eslint/eslint-plugin": "^8.24.0",
+    "@typescript-eslint/parser": "^8.24.0",
     "chai": "^5.1.2",
     "eslint": "^9.17.0",
     "eslint-define-config": "^2.1.0",
     "globals": "^15.13.0",
     "husky": "^7.0.4",
+    "ignore-styles": "^5.0.1",
     "jsdom": "^26.0.0",
     "jsdom-global": "^3.0.2",
     "lint-staged": "^15.4.3",

@@ -68,7 +68,8 @@ class HTTPTransport {
           try {
             const responseData = JSON.parse(xhr.responseText)
             resolve(responseData)
-          } catch (error) {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          } catch (_error) {
             resolve(xhr.responseText)
           }
         } else {

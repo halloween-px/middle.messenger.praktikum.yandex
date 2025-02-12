@@ -1,8 +1,8 @@
 import { FormMessageTemaplte, TemplateForm } from './form.tmpl'
-import './form.scss'
 import { Block, BlockProps } from '../../lib/block'
 import { Input } from '../input/input'
 import { ValidatorType } from '../../utils/validators'
+import './form.scss'
 
 interface Props extends BlockProps {
   classNames?: string
