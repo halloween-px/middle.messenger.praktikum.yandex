@@ -19,7 +19,7 @@
   },
   "lint-staged": {
     "**/*.{ts, js}": "npm run lint",
-    "**/*.test.ts": "npm run test --silent=false",
+    "**/*.test.ts": "npm run test",
     "**/*.scss": "npm run lint:styles"
   },
   "devDependencies": {
