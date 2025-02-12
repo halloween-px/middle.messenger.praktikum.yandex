@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "vite --open",
     "build": "vite build",
-    "start": "vite build && vite preview",
+    "start": "npm run build && npm run preview",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "lint:styles": "stylelint 'src/**/*.scss' --fix",
@@ -50,7 +50,6 @@
     "vite": "^5.4.8"
   },
   "dependencies": {
-    "@peculiar/webcrypto": "^1.5.0",
     "handlebars": "^4.7.8",
     "uuid": "^11.0.3",
     "vite-plugin-handlebars": "^2.0.0"
