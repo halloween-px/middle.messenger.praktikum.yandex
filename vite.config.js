@@ -6,12 +6,6 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true,
-    strictPort: true,
-  },
-  preview: {
-    port: 3000,
-    open: true,
-    strictPort: true,
   },
   plugins: [
     handlebars({
@@ -21,8 +15,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        quietDeps: true,
-        additionalData: '@use "./src/styles/main.scss" as *;',
+        additionalData: '@import "./src/styles/main.scss";',
         silenceDeprecations: ['legacy-js-api'],
       },
     },
