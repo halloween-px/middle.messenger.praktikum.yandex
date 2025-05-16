@@ -1,5 +1,6 @@
 import { defineConfig } from 'eslint-define-config'
 import parser from '@typescript-eslint/parser'
+import plugin from '@typescript-eslint/eslint-plugin'
 import globals from 'globals'
 
 export default defineConfig([
@@ -16,11 +17,14 @@ export default defineConfig([
         ...globals.browser,
       },
     },
+    plugins: {
+      '@typescript-eslint': plugin,
+    },
     ignores: ['dist/**', '**/*.min.js', 'node_modules/**'],
     rules: {
       quotes: ['error', 'single'],
       semi: ['error', 'never'],
-      'no-unused-vars': ['warn', { vars: 'all', args: 'after-used', ignoreRestSiblings: true }],
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
       eqeqeq: ['error', 'always'],
     },
   },

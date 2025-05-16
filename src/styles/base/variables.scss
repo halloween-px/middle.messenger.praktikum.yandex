@@ -1,34 +1,34 @@
 // colors
-$color-primary: #3369f3;
-$color-primary-light: #e4edfd;
-$black: #000;
-$white: #fff;
-$gray: #999;
-$text: #1e1e1e;
-$light: #efefef;
-$border-color: #eaeaea;
-$red: #f00;
+$color-primary: #3369f3 !default;
+$color-primary-light: #e4edfd !default;
+$black: #000 !default;
+$white: #fff !default;
+$gray: #999 !default;
+$text: #1e1e1e !default;
+$light: #efefef !default;
+$border-color: #eaeaea !default;
+$red: #f00 !default;
 
 // shadow
-$box-shadow: 0 0 6px 0 rgba($black, 0.14);
+$box-shadow: 0 0 6px 0 rgba($black, 0.14) !default;
 
 // radius
-$border-radius: 12px;
-$border-radius-sm: 8px;
-$botder-radius-xs: 5px;
+$border-radius: 12px !default;
+$border-radius-sm: 8px !default;
+$botder-radius-xs: 5px !default;
 
 // font
-$font-base: 'Inter', sans-serif;
+$font-base: 'Inter', sans-serif !default;
 
 // transition
-$transition-base: all 0.2s ease-in-out;
+$transition-base: all 0.2s ease-in-out !default;
 
 // text
-$text-xxl: 40px;
-$text-xl: 20px;
-$text-lg: 15px;
-$text-md: 13px;
-$text-sm: 12px;
-$text-xs: 9px;
-$text-h1: $text-xxl;
-$text-base: $text-sm;
+$text-xxl: 40px !default;
+$text-xl: 20px !default;
+$text-lg: 15px !default;
+$text-md: 13px !default;
+$text-sm: 12px !default;
+$text-xs: 9px !default;
+$text-h1: $text-xxl !default;
+$text-base: $text-sm !default;

@@ -3,6 +3,14 @@ import handlebars from 'vite-plugin-handlebars'
 import { resolve } from 'path'
 
 export default defineConfig({
+  define: {
+    global: {},
+  },
+  resolve: {
+    alias: {
+      crypto: 'crypto-js',
+    },
+  },
   server: {
     port: 3000,
     open: true,
@@ -15,7 +23,8 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: '@import "./src/styles/main.scss";',
+        quietDeps: true,
+        additionalData: '@use "./src/styles/main.scss" as *;',
         silenceDeprecations: ['legacy-js-api'],
       },
     },
